@@ -24,8 +24,11 @@ class CustomFormField extends StatelessWidget {
             style: const TextStyle(fontSize: 16, shadows: []),
           ),
         ),
+        const SizedBox(
+          height: 5,
+        ),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
           decoration: BoxDecoration(
               color: Colors.white,
               border: Border.all(

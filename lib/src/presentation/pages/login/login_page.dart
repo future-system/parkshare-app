@@ -180,7 +180,9 @@ class LoginPage extends StatelessWidget {
                 style: const ButtonStyle(
                     visualDensity: VisualDensity.compact,
                     padding: WidgetStatePropertyAll(EdgeInsets.zero)),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, Navigation.routing.signup);
+                },
                 child: RichText(
                   text: TextSpan(
                       style: TextStyle(
