@@ -24,6 +24,7 @@ class MainApp extends StatelessWidget {
           primaryColor: DesignSystem.colors.primary,
           colorScheme:
               ColorScheme.fromSeed(seedColor: DesignSystem.colors.primary),
+          scaffoldBackgroundColor: DesignSystem.colors.background,
           textTheme: const TextTheme().apply(
             bodyColor: DesignSystem.colors.secondary,
             displayColor: DesignSystem.colors.secondary,

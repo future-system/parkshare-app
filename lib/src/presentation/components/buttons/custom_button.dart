@@ -5,10 +5,12 @@ import 'package:parkshare_app/src/core/constants/design_system.dart';
 class CustomButton extends StatelessWidget {
   final VoidCallback onPressed;
   final Widget child;
+  final Color foregroundColor;
   const CustomButton({
     super.key,
     required this.onPressed,
     required this.child,
+    this.foregroundColor = Colors.white,
   });
 
   @override
@@ -18,6 +20,7 @@ class CustomButton extends StatelessWidget {
           backgroundColor: WidgetStateProperty.all(
             DesignSystem.colors.primary,
           ),
+          foregroundColor: WidgetStateProperty.all(foregroundColor),
         ),
         onPressed: onPressed,
         child: child);

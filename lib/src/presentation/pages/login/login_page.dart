@@ -4,6 +4,7 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:parkshare_app/src/core/constants/assets.dart';
 import 'package:parkshare_app/src/core/constants/design_system.dart';
+import 'package:parkshare_app/src/core/navigation.dart';
 import 'package:parkshare_app/src/presentation/components/buttons/custom_button.dart';
 import 'package:parkshare_app/src/presentation/components/custom_form_field/custom_form_field.dart';
 
@@ -103,7 +104,10 @@ class LoginPage extends StatelessWidget {
                       children: [
                         Expanded(
                           child: CustomButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                  context, Navigation.routing.onboarding);
+                            },
                             child: const Text(
                               'Entrar',
                               style: TextStyle(
@@ -167,26 +171,29 @@ class LoginPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // const SizedBox(
-                  //   width: 10,
-                  // ),
-                  // IconButton(
-                  //   onPressed: signInWithGoogle,
-                  //   icon: Container(
-                  //     decoration: BoxDecoration(
-                  //         borderRadius: BorderRadius.circular(100),
-                  //         color: Colors.white,
-                  //         border: Border.all(color: Colors.black, width: 1.5)),
-                  //     child: Padding(
-                  //       padding: const EdgeInsets.all(8.0),
-                  //       child: Image.asset(
-                  //         Assets.images.facebook,
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
                 ],
-              )
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              TextButton(
+                style: const ButtonStyle(
+                    visualDensity: VisualDensity.compact,
+                    padding: WidgetStatePropertyAll(EdgeInsets.zero)),
+                onPressed: () {},
+                child: RichText(
+                  text: TextSpan(
+                      style: TextStyle(
+                        color: DesignSystem.colors.secondary,
+                      ),
+                      text: 'Não tem conta? ',
+                      children: const [
+                        TextSpan(
+                            text: 'Cadastre-se',
+                            style: TextStyle(fontWeight: FontWeight.bold))
+                      ]),
+                ),
+              ),
             ],
           ),
         ),

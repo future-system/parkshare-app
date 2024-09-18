@@ -21,26 +21,13 @@ class CustomFormField extends StatelessWidget {
           padding: const EdgeInsets.only(left: 16),
           child: Text(
             label,
-            style: TextStyle(fontSize: 16, shadows: [
-              BoxShadow(
-                blurRadius: 6,
-                color: Colors.grey.shade600,
-                offset: const Offset(0, 3),
-              )
-            ]),
+            style: const TextStyle(fontSize: 16, shadows: []),
           ),
         ),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
           decoration: BoxDecoration(
-              color: DesignSystem.colors.background,
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 4,
-                  color: Colors.grey.shade600,
-                  offset: const Offset(0, 6),
-                )
-              ],
+              color: Colors.white,
               border: Border.all(
                 color: DesignSystem.colors.primary,
               ),
@@ -48,6 +35,7 @@ class CustomFormField extends StatelessWidget {
           child: TextFormField(
             cursorColor: DesignSystem.colors.primary,
             decoration: InputDecoration(
+              fillColor: Colors.white,
               border: InputBorder.none,
               suffix: suffix,
             ),
