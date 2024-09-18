@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:parkshare_app/src/core/constants/assets.dart';
 import 'package:parkshare_app/src/core/constants/design_system.dart';
 import 'package:parkshare_app/src/presentation/components/buttons/custom_button.dart';
@@ -6,6 +9,36 @@ import 'package:parkshare_app/src/presentation/components/custom_form_field/cust
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
+
+  Future<UserCredential> signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
+
+  Future<UserCredential> signInWithFacebook() async {
+    // Trigger the sign-in flow
+    final LoginResult loginResult = await FacebookAuth.instance.login();
+
+    // Create a credential from the access token
+    final OAuthCredential facebookAuthCredential =
+        FacebookAuthProvider.credential(loginResult.accessToken!.tokenString);
+
+    // Once signed in, return the UserCredential
+    return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +153,7 @@ class LoginPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: signInWithGoogle,
                     icon: Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(100),
@@ -134,24 +167,24 @@ class LoginPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          color: Colors.white,
-                          border: Border.all(color: Colors.black, width: 1.5)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Image.asset(
-                          Assets.images.facebook,
-                        ),
-                      ),
-                    ),
-                  ),
+                  // const SizedBox(
+                  //   width: 10,
+                  // ),
+                  // IconButton(
+                  //   onPressed: signInWithGoogle,
+                  //   icon: Container(
+                  //     decoration: BoxDecoration(
+                  //         borderRadius: BorderRadius.circular(100),
+                  //         color: Colors.white,
+                  //         border: Border.all(color: Colors.black, width: 1.5)),
+                  //     child: Padding(
+                  //       padding: const EdgeInsets.all(8.0),
+                  //       child: Image.asset(
+                  //         Assets.images.facebook,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               )
             ],

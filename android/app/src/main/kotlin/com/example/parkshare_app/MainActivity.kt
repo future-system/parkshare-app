@@ -1,4 +1,4 @@
-package com.example.parkshare_app
+package com.futuresystem.parkshare
 
 import io.flutter.embedding.android.FlutterActivity
 
