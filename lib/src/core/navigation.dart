@@ -9,7 +9,7 @@ sealed class Navigation {
 
 final class _Routing {
   Map<String, WidgetBuilder> get routes => {
-        login: (context) => const LoginPage(),
+        login: (context) => LoginPage(),
         onboarding: (context) => const OnboardingPage(),
         signup: (context) => const SignupPage(),
       };

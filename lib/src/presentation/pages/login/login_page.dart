@@ -7,9 +7,22 @@ import 'package:parkshare_app/src/core/constants/design_system.dart';
 import 'package:parkshare_app/src/core/navigation.dart';
 import 'package:parkshare_app/src/presentation/components/buttons/custom_button.dart';
 import 'package:parkshare_app/src/presentation/components/custom_form_field/custom_form_field.dart';
+import 'package:parkshare_app/src/presentation/pages/login/login_service.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+   LoginPage({super.key});
+
+  final CustomFormField login = CustomFormField(
+    label: 'Email',
+    controller: TextEditingController(),
+  );
+
+  final CustomFormField senha =  CustomFormField(
+      label: 'Senha',
+      controller: TextEditingController(),
+      suffix: Icon(
+        Icons.visibility_off,
+      ));
 
   Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
@@ -17,7 +30,7 @@ class LoginPage extends StatelessWidget {
 
     // Obtain the auth details from the request
     final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
+    await googleUser?.authentication;
 
     // Create a new credential
     final credential = GoogleAuthProvider.credential(
@@ -35,7 +48,7 @@ class LoginPage extends StatelessWidget {
 
     // Create a credential from the access token
     final OAuthCredential facebookAuthCredential =
-        FacebookAuthProvider.credential(loginResult.accessToken!.tokenString);
+    FacebookAuthProvider.credential(loginResult.accessToken!.tokenString);
 
     // Once signed in, return the UserCredential
     return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
@@ -69,18 +82,11 @@ class LoginPage extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const CustomFormField(
-                      label: 'Email',
-                    ),
+                    login,
                     const SizedBox(
                       height: 20,
                     ),
-                    const CustomFormField(
-                      label: 'Senha',
-                      suffix: Icon(
-                        Icons.visibility_off,
-                      ),
-                    ),
+                    senha,
                     const SizedBox(
                       height: 15,
                     ),
@@ -92,7 +98,7 @@ class LoginPage extends StatelessWidget {
                           child: Text(
                             'Esqueci minha senha',
                             style:
-                                TextStyle(color: DesignSystem.colors.secondary),
+                            TextStyle(color: DesignSystem.colors.secondary),
                           ),
                         ),
                       ],
@@ -104,9 +110,11 @@ class LoginPage extends StatelessWidget {
                       children: [
                         Expanded(
                           child: CustomButton(
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                  context, Navigation.routing.onboarding);
+                            onPressed: () async {
+                              if(await loginApp(login.controller?.text ?? '', senha.controller?.text ?? '')){
+                                Navigator.pushNamed(
+                                    context, Navigation.routing.onboarding);
+                              }
                             },
                             child: const Text(
                               'Entrar',
