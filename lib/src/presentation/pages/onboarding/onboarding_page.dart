@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:parkshare_app/src/core/constants/design_system.dart';
+import 'package:parkshare_app/src/core/navigation.dart';
 import 'package:parkshare_app/src/presentation/components/buttons/custom_button.dart';
 
 class OnboardingPage extends StatelessWidget {
@@ -35,7 +36,10 @@ class OnboardingPage extends StatelessWidget {
                       children: [
                         Expanded(
                           child: CustomButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                    context, Navigation.routing.vehicleRegistration);
+                              },
                               child: const Text('Buscar garagem')),
                         ),
                       ],

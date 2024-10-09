@@ -5,24 +5,29 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:parkshare_app/src/core/constants/assets.dart';
 import 'package:parkshare_app/src/core/constants/design_system.dart';
 import 'package:parkshare_app/src/core/navigation.dart';
+import 'package:parkshare_app/src/data/models/login_model/login_model.dart';
 import 'package:parkshare_app/src/presentation/components/buttons/custom_button.dart';
 import 'package:parkshare_app/src/presentation/components/custom_form_field/custom_form_field.dart';
-import 'package:parkshare_app/src/presentation/pages/login/login_service.dart';
+import 'package:parkshare_app/src/data/repository/login_repository.dart';
 
 class LoginPage extends StatelessWidget {
-   LoginPage({super.key});
+  LoginPage({super.key});
 
-  final CustomFormField login = CustomFormField(
-    label: 'Email',
-    controller: TextEditingController(),
-  );
+  final LoginRepository repository = LoginRepository();
 
-  final CustomFormField senha =  CustomFormField(
-      label: 'Senha',
-      controller: TextEditingController(),
-      suffix: Icon(
-        Icons.visibility_off,
-      ));
+  final TextEditingController controllerEmail = TextEditingController();
+
+  final TextEditingController controllerPassword = TextEditingController();
+
+  void login(context) async {
+    final model = LoginModel(email: controllerEmail.text, password: controllerPassword.text);
+
+    if (await repository.loginApp(model)) {
+      Navigator.pushNamed(
+          context, Navigation.routing.onboarding);
+    }
+
+  }
 
   Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
@@ -30,7 +35,7 @@ class LoginPage extends StatelessWidget {
 
     // Obtain the auth details from the request
     final GoogleSignInAuthentication? googleAuth =
-    await googleUser?.authentication;
+        await googleUser?.authentication;
 
     // Create a new credential
     final credential = GoogleAuthProvider.credential(
@@ -48,7 +53,7 @@ class LoginPage extends StatelessWidget {
 
     // Create a credential from the access token
     final OAuthCredential facebookAuthCredential =
-    FacebookAuthProvider.credential(loginResult.accessToken!.tokenString);
+        FacebookAuthProvider.credential(loginResult.accessToken!.tokenString);
 
     // Once signed in, return the UserCredential
     return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
@@ -82,11 +87,19 @@ class LoginPage extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    login,
+                    CustomFormField(
+                      label: 'Email',
+                      controller: controllerEmail,
+                    ),
                     const SizedBox(
                       height: 20,
                     ),
-                    senha,
+                    CustomFormField(
+                        label: 'Senha',
+                        controller: controllerPassword,
+                        suffix: const Icon(
+                          Icons.visibility_off,
+                        )),
                     const SizedBox(
                       height: 15,
                     ),
@@ -98,7 +111,7 @@ class LoginPage extends StatelessWidget {
                           child: Text(
                             'Esqueci minha senha',
                             style:
-                            TextStyle(color: DesignSystem.colors.secondary),
+                                TextStyle(color: DesignSystem.colors.secondary),
                           ),
                         ),
                       ],
@@ -110,12 +123,7 @@ class LoginPage extends StatelessWidget {
                       children: [
                         Expanded(
                           child: CustomButton(
-                            onPressed: () async {
-                              if(await loginApp(login.controller?.text ?? '', senha.controller?.text ?? '')){
-                                Navigator.pushNamed(
-                                    context, Navigation.routing.onboarding);
-                              }
-                            },
+                            onPressed: () => login(context),
                             child: const Text(
                               'Entrar',
                               style: TextStyle(

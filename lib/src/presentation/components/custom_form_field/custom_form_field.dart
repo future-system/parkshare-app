@@ -4,13 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:parkshare_app/src/core/constants/design_system.dart';
 
 class CustomFormField extends StatelessWidget {
-  final String label;
+  final String? label;
+  final String? hint;
   final Widget? suffix;
   final String? Function(String? value)? validator;
   final TextEditingController? controller;
   final bool obscureText;
+  final String? initialValue;
+
   const CustomFormField({
-    required this.label,
+    this.initialValue,
+    this.label,
+    this.hint,
     super.key,
     this.suffix,
     this.validator,
@@ -23,10 +28,11 @@ class CustomFormField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        if(label != null)
         Padding(
           padding: const EdgeInsets.only(left: 16),
           child: Text(
-            label,
+            label!,
             style: const TextStyle(fontSize: 16, shadows: []),
           ),
         ),
@@ -34,10 +40,12 @@ class CustomFormField extends StatelessWidget {
           height: 5,
         ),
         TextFormField(
+          initialValue: initialValue,
           obscureText: obscureText,
           controller: controller,
           cursorColor: DesignSystem.colors.primary,
           decoration: InputDecoration(
+            hintText: hint,
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16),
             ),
