@@ -15,9 +15,14 @@ dependencies:
     sdk: flutter
   flutter_bloc: ^8.1.6
   flutter_facebook_auth: ^7.1.1
+  flutter_map: ^7.0.2
   flutter_native_splash: ^2.4.1
+  flutter_secure_storage: ^9.2.2
+  geolocator: ^13.0.1
   google_fonts: ^6.2.1
   google_sign_in: ^6.2.1
+  latlong2: ^0.9.1
+  shared_preferences: ^2.3.2
 
 dev_dependencies:
   flutter_test:

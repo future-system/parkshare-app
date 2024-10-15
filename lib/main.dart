@@ -30,7 +30,7 @@ class MainApp extends StatelessWidget {
             displayColor: DesignSystem.colors.secondary,
           )),
       routes: Navigation.routing.routes,
-      initialRoute: Navigation.routing.vehicleRegistration,
+      initialRoute: Navigation.routing.login,
     );
   }
 }

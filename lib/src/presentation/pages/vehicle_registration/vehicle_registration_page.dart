@@ -47,7 +47,7 @@ class _VehicleRegistrationPageState extends State<VehicleRegistrationPage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
-                  constraints: BoxConstraints(maxHeight: 500),
+                  constraints: const BoxConstraints(maxHeight: 500),
                   child: SingleChildScrollView(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -102,7 +102,7 @@ class _VehicleRegistrationPageState extends State<VehicleRegistrationPage> {
                     ),
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -156,7 +156,7 @@ class _VehicleRegistrationPageState extends State<VehicleRegistrationPage> {
                       child: CustomButton(
                         onPressed: () async {
                           Navigator.pushNamed(
-                              context, Navigation.routing.onboarding);
+                              context, Navigation.routing.home);
                         },
                         child: const Text(
                           'Salvar',
@@ -176,7 +176,10 @@ class _VehicleRegistrationPageState extends State<VehicleRegistrationPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(
+                            context, Navigation.routing.home);
+                      },
                       child: Text(
                         'Não quero cadastrar agora',
                         style: TextStyle(color: DesignSystem.colors.secondary),

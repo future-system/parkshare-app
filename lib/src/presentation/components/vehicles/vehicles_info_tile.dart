@@ -23,28 +23,28 @@ class _VehiclesInfoTileState extends State<VehiclesInfoTile> {
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.symmetric(vertical: 6, horizontal: 16),
+          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
           decoration: BoxDecoration(
             color: DesignSystem.colors.secondary,
             borderRadius: BorderRadius.circular(16)
           ),          
           child: Row(
             children: [
-              Text(widget.vehicle.model, style: TextStyle(color: Colors.white)),
+              Text(widget.vehicle.model, style: const TextStyle(color: Colors.white)),
               const SizedBox(
                 width: 8,
               ),
-              Text(widget.vehicle.brand, style: TextStyle(color: Colors.white)),
+              Text(widget.vehicle.brand, style: const TextStyle(color: Colors.white)),
               const SizedBox(
                 width: 8,
               ),
-              Text(widget.vehicle.color, style: TextStyle(color: Colors.white)),
-              Spacer(),
-              IconButton(icon: Icon(Icons.delete, color:  Colors.amber, size: 24,), onPressed: widget.onDelete,),
+              Text(widget.vehicle.color, style: const TextStyle(color: Colors.white)),
+              const Spacer(),
+              IconButton(icon: const Icon(Icons.delete, color:  Colors.amber, size: 24,), onPressed: widget.onDelete,),
               const SizedBox(
                 width: 8,
               ),
-              IconButton(icon: Icon(Icons.edit, color:  Colors.amber, size: 24,), onPressed: widget.onEdit,),
+              IconButton(icon: const Icon(Icons.edit, color:  Colors.amber, size: 24,), onPressed: widget.onEdit,),
             ],
           ),
         ),

@@ -5,7 +5,7 @@ import 'package:parkshare_app/src/presentation/components/buttons/custom_button.
 import 'package:parkshare_app/src/presentation/components/custom_form_field/custom_form_field.dart';
 
 class VehicleInfoBox extends StatefulWidget {
-  VehicleInfoBox({required this.vehicle, required this.onSaved, super.key});
+  const VehicleInfoBox({required this.vehicle, required this.onSaved, super.key});
 
   final VehicleModel vehicle;
 
@@ -36,7 +36,7 @@ class _VehicleInfoBoxState extends State<VehicleInfoBox> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
       decoration: BoxDecoration(
           color: DesignSystem.colors.secondary,
           borderRadius: BorderRadius.circular(16)),
