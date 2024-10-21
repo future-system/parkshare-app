@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
         body: FutureBuilder<Position>(
           future: _determinePosition(),
           builder: (context, snapshot) => (snapshot.data == null)
-              ? Center(child: CircularProgressIndicator())
+              ? const Center(child: CircularProgressIndicator())
               : FlutterMap(
                   options: MapOptions(
                     initialCenter: LatLng(snapshot.data?.latitude ?? 0, snapshot.data?.longitude ?? 0),

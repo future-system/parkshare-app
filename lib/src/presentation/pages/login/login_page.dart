@@ -13,7 +13,7 @@ import 'package:parkshare_app/src/data/repository/login_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({super.key});
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -77,7 +77,10 @@ class _LoginPageState extends State<LoginPage> {
     final SharedPreferences token = await SharedPreferences.getInstance();
     final credenciais = await Credentials().getCredentials();
 
-    if(credenciais["email"] != null && credenciais["password"] != null || token.getString("token") != null && token.getString("expire") != null){
+    if(credenciais["email"] != "" && credenciais["password"] != "" || token.getString("token") != "" && token.getString("expire") != null){
+
+      print(credenciais["email"]);
+      print(credenciais["password"]);
 
       if(DateTime.parse(token.getString("expire") ?? "").isAfter(DateTime.now())){
 
@@ -95,7 +98,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return FutureBuilder<bool>(
       future: isLoged(),
-      builder: (context, snapshot) => (!snapshot.hasData) ? Center(child: CircularProgressIndicator(),) :Scaffold(
+      builder: (context, snapshot) => (!snapshot.hasData) ? const Center(child: CircularProgressIndicator(),) :Scaffold(
         resizeToAvoidBottomInset: true,
         backgroundColor: DesignSystem.colors.background,
         body: Padding(

@@ -1,18 +1,23 @@
 import 'package:dio/dio.dart';
+import 'package:parkshare_app/src/core/constants/endpoints.dart';
 
 class HttpClient {
-  final dio = Dio();
-
-  final url = "https://parkshare-production.up.railway.app/";
+  final dio = Dio(BaseOptions(
+    baseUrl: Endpoints.url.baseUrl,
+    receiveTimeout: const Duration(seconds: 10),
+    connectTimeout: const Duration(seconds: 10),
+  ));
 
   Future<Map<String, dynamic>> get(String url) async {
-    Response res = await dio.get(this.url + url);
+    Response res = await dio.get(Endpoints.url.baseUrl + url);
 
     return res.data;
   }
 
-  Future<Map<String, dynamic>> post(String url, Map<String, dynamic> parameters) async {
-    Response res = await dio.post(this.url + url, data: parameters);
+  dynamic post(String url, {required Map<String, dynamic>? parameters, required String? token}) async {
+    Response res = await dio.post(url, options: Options(headers: token != null ? {'Authorization': 'Bearer $token'} : null), data: parameters);
+
+    print(res);
 
     return res.data;
   }

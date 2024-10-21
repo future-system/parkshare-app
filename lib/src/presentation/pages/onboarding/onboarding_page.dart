@@ -1,10 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:parkshare_app/src/core/constants/design_system.dart';
 import 'package:parkshare_app/src/core/navigation.dart';
+import 'package:parkshare_app/src/data/repository/onboarding_repository.dart';
 import 'package:parkshare_app/src/presentation/components/buttons/custom_button.dart';
 
-class OnboardingPage extends StatelessWidget {
+class OnboardingPage extends StatefulWidget {
   const OnboardingPage({super.key});
+
+  @override
+  State<OnboardingPage> createState() => _OnboardingPageState();
+}
+
+class _OnboardingPageState extends State<OnboardingPage> {
+  OnboardingRepository repository = OnboardingRepository();
+
+  void createClient(context) async{
+
+    if(await repository.createClient()) {
+      Navigator.pushNamed(
+          context, Navigation.routing.vehicleRegistration);
+    }
+
+  }
+
+  void createAssociated(context) async {
+
+    if(await repository.createAssociated()){
+
+    }
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +61,7 @@ class OnboardingPage extends StatelessWidget {
                       children: [
                         Expanded(
                           child: CustomButton(
-                              onPressed: () {
-                                Navigator.pushNamed(
-                                    context, Navigation.routing.vehicleRegistration);
-                              },
+                              onPressed: () => createClient(context),
                               child: const Text('Buscar garagem')),
                         ),
                       ],

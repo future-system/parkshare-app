@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:parkshare_app/src/core/constants/design_system.dart';
 import 'package:parkshare_app/src/core/navigation.dart';
+import 'package:parkshare_app/src/data/models/signup_model/signin_model.dart';
+import 'package:parkshare_app/src/data/repository/signup_repository.dart';
 import 'package:parkshare_app/src/presentation/components/buttons/custom_button.dart';
 import 'package:parkshare_app/src/presentation/components/custom_form_field/custom_form_field.dart';
 
@@ -24,14 +26,19 @@ class _SignupPageState extends State<SignupPage> {
 
   bool hidePassword = true;
 
-  void _signup(context) {
+  final SignupRepository repository = SignupRepository();
+
+  void _signup(context) async {
     final areFieldsValid = _signupFormKey.currentState!.validate();
     if (!didAcceptTerms) {
       setState(() {
         showTermsWarning = true;
       });
     }
-    if (areFieldsValid && didAcceptTerms) {
+
+    final model = SignupModel(nickname: nameController.text, email: emailController.text, password: passwordController.text);
+
+    if (areFieldsValid && didAcceptTerms && await repository.signupApp(model)) {
       Navigator.pushNamed(context, Navigation.routing.onboarding);
     }
   }

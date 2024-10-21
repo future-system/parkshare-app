@@ -11,7 +11,7 @@ sealed class Navigation {
 
 final class _Routing {
   Map<String, WidgetBuilder> get routes => {
-        login: (context) => LoginPage(),
+        login: (context) => const LoginPage(),
         onboarding: (context) => const OnboardingPage(),
         signup: (context) => const SignupPage(),
         vehicleRegistration: (context) => const VehicleRegistrationPage(),

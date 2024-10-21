@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:parkshare_app/src/core/constants/design_system.dart';
 import 'package:parkshare_app/src/core/navigation.dart';
-import 'package:parkshare_app/src/presentation/components/custom_form_field/custom_form_field.dart';
 
 class BottomAppBarDemo extends StatefulWidget {
   final Widget body;
@@ -20,7 +19,7 @@ class _BottomAppBarDemoState extends State<BottomAppBarDemo> {
        body: widget.body,
         floatingActionButton: FloatingActionButton(
           backgroundColor: DesignSystem.colors.primary,
-          shape: CircleBorder(),
+          shape: const CircleBorder(),
           onPressed: () {
             Navigator.pushNamed(
                 context, Navigation.routing.home);
@@ -28,9 +27,9 @@ class _BottomAppBarDemoState extends State<BottomAppBarDemo> {
           child: const Icon(Icons.map, color: Colors.white,),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: _DemoBottomAppBar(
+        bottomNavigationBar: const _DemoBottomAppBar(
           fabLocation: FloatingActionButtonLocation.centerDocked,
-          shape: const CircularNotchedRectangle(),
+          shape: CircularNotchedRectangle(),
         ),
       ),
     );

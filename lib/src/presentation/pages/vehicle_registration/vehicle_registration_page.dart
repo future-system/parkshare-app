@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:parkshare_app/src/core/constants/design_system.dart';
 import 'package:parkshare_app/src/core/navigation.dart';
-import 'package:parkshare_app/src/data/models/vehicle_registration_model/vehicle_model.dart';
+import 'package:parkshare_app/src/data/models/vehicle__model/vehicle.dart';
+import 'package:parkshare_app/src/data/models/vehicle__model/vehicle_model.dart';
+import 'package:parkshare_app/src/data/repository/vehicle_repository.dart';
 import 'package:parkshare_app/src/presentation/components/buttons/custom_button.dart';
 import 'package:parkshare_app/src/presentation/components/vehicles/vehicle_info_box.dart';
 import 'package:parkshare_app/src/presentation/components/vehicles/vehicles_info_tile.dart';
@@ -19,9 +21,33 @@ class _VehicleRegistrationPageState extends State<VehicleRegistrationPage> {
 
   bool isEditing = false;
 
-  final List<VehicleModel> vehicles = [];
+  final List<Vehicle> vehicles = [];
 
-  VehicleModel? currentVehicle;
+  Vehicle? currentVehicle;
+
+  final VehicleRepository repository = VehicleRepository();
+
+  void registerVehicle(context) async{
+
+    final model = VehicleModel(vehicles: vehicles);
+
+    if(vehicles.isNotEmpty && await repository.registerVehicle(model)){
+
+      final snackBar = SnackBar(content: const Text("Veículos cadastrados"), backgroundColor: DesignSystem.colors.success, behavior: SnackBarBehavior.floating,);
+
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+      Navigator.pushNamed(context, Navigation.routing.home);
+
+      return;
+    }
+
+    final snackBar = SnackBar(content: const Text("Cadastre um veículo"), backgroundColor: DesignSystem.colors.erro, behavior: SnackBarBehavior.floating,);
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +135,7 @@ class _VehicleRegistrationPageState extends State<VehicleRegistrationPage> {
                     CustomButton(
                         onPressed: () {
                           setState(() {
-                            currentVehicle = VehicleModel(
+                            currentVehicle = Vehicle(
                                 plate: "",
                                 model: "",
                                 brand: "",
@@ -154,10 +180,7 @@ class _VehicleRegistrationPageState extends State<VehicleRegistrationPage> {
                   children: [
                     Expanded(
                       child: CustomButton(
-                        onPressed: () async {
-                          Navigator.pushNamed(
-                              context, Navigation.routing.home);
-                        },
+                        onPressed: () => registerVehicle(context),
                         child: const Text(
                           'Salvar',
                           style: TextStyle(

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:parkshare_app/src/core/constants/design_system.dart';
-import 'package:parkshare_app/src/data/models/vehicle_registration_model/vehicle_model.dart';
+import 'package:parkshare_app/src/data/models/vehicle__model/vehicle.dart';
 import 'package:parkshare_app/src/presentation/components/buttons/custom_button.dart';
 import 'package:parkshare_app/src/presentation/components/custom_form_field/custom_form_field.dart';
 
 class VehicleInfoBox extends StatefulWidget {
   const VehicleInfoBox({required this.vehicle, required this.onSaved, super.key});
 
-  final VehicleModel vehicle;
+  final Vehicle vehicle;
 
-  final Function(VehicleModel model) onSaved;
+  final Function(Vehicle model) onSaved;
 
   @override
   State<VehicleInfoBox> createState() => _VehicleInfoBoxState();
@@ -53,6 +53,12 @@ class _VehicleInfoBoxState extends State<VehicleInfoBox> {
                 CustomFormField(
                   hint: "Placa",
                   controller: plateController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Por favor insira a placa do veículo';
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(
                   height: 16,
@@ -60,6 +66,12 @@ class _VehicleInfoBoxState extends State<VehicleInfoBox> {
                 CustomFormField(
                   hint: "Modelo",
                   controller: modelController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Por favor insira o modelo do veículo';
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(
                   height: 16,
@@ -67,6 +79,12 @@ class _VehicleInfoBoxState extends State<VehicleInfoBox> {
                 CustomFormField(
                   hint: "Marca",
                   controller: brandController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Por favor insira a marca do veículo';
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(
                   height: 16,
@@ -74,6 +92,12 @@ class _VehicleInfoBoxState extends State<VehicleInfoBox> {
                 CustomFormField(
                   hint: "Cor",
                   controller: colorController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Por favor insira a cor do veículo';
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(
                   height: 16,
@@ -81,6 +105,12 @@ class _VehicleInfoBoxState extends State<VehicleInfoBox> {
                 CustomFormField(
                   hint: "Tipo",
                   controller: typeController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Por favor insira o tipo do veículo';
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(
                   height: 16,
@@ -92,7 +122,7 @@ class _VehicleInfoBoxState extends State<VehicleInfoBox> {
                   children: [
                     Expanded(
                       child: CustomButton(
-                        onPressed: () async => widget.onSaved(VehicleModel(
+                        onPressed: () async => widget.onSaved(Vehicle(
                             plate: plateController.text,
                             model: modelController.text,
                             brand: brandController.text,

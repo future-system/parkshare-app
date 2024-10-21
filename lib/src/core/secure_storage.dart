@@ -2,7 +2,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class Credentials {
 
-final storage = FlutterSecureStorage();
+final storage = const FlutterSecureStorage();
 
   Future<void> saveCredentials(String email, String senha) async {
     await storage.write(key: 'email', value: email);

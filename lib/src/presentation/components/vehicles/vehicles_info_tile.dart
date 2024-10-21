@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:parkshare_app/src/core/constants/design_system.dart';
-import 'package:parkshare_app/src/data/models/vehicle_registration_model/vehicle_model.dart';
+import 'package:parkshare_app/src/data/models/vehicle__model/vehicle.dart';
 
 class VehiclesInfoTile extends StatefulWidget {
   const VehiclesInfoTile({required this.vehicle, required this.onDelete, required this.onEdit, super.key});
 
-  final VehicleModel vehicle;
+  final Vehicle vehicle;
 
   final VoidCallback onDelete;
 
